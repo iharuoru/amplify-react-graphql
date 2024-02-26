@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "amplifyreactgraphql759c1ca2": {}
+      },
+      "api": {
+        "amplifyreactgraphql": {}
+      },
+      "storage": {
+        "imagestorage": {}
       }
     }
   }
