@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import "@aws-amplify/ui-react/styles.css";
 import { generateClient } from 'aws-amplify/api';
-import { uploadData, getUrl } from 'aws-amplify/storage';
+import { uploadData, getUrl, remove } from 'aws-amplify/storage';
 // import { API, Storage } from "aws-amplify";
 import {
   Button,
@@ -35,7 +35,7 @@ const App = ({ signOut }) => {
     await Promise.all(
       notesFromAPI.map(async (note) => {
         if (note.image) {
-          const url = await getUrl({key: note.name});
+          const url = await getUrl({ key: note.name });
           note.image = url;
         }
         return note;
@@ -68,7 +68,7 @@ const App = ({ signOut }) => {
   async function deleteNote({ id, name }) {
     const newNotes = notes.filter((note) => note.id !== id);
     setNotes(newNotes);
-    await Storage.remove(name);
+    await remove({ key: name });
     await client.graphql({
       query: deleteNoteMutation,
       variables: { input: { id } },
